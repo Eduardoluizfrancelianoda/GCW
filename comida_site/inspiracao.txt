@@ -1,3 +1,0 @@
-https://podruff.neocities.org/
-
-anotar quais conteúdos bons dá pra botar num site de comida, to sem ideias de links que dá pra botar. eu sei que tem que ter um sistema de votação em qual comida é melhor; de alguma forma também tem que ter um sistema de adicionar comidas com banco de dados
