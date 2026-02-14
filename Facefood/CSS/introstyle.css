@@ -1,0 +1,152 @@
+.inspiration-regular {
+  font-family: "Inspiration", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-image: url("../imgs/textura_amadeirada.jpg");
+  background-size: cover;
+  background-position: center;     
+  background-repeat: no-repeat;    
+  min-height: 100vh; 
+  margin: 0;
+  padding: 0;              
+}
+
+.main-content-texture {
+  background-image: url("../imgs/textura enxadrada.jpg");
+  background-size: cover;
+  background-position: center;     
+  background-repeat: no-repeat;    
+  min-height: 100%; 
+  margin-left: 10%;
+  margin-right: 10%;
+  position: relative;
+  top: -20px;
+  display: flex;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.main-content {
+  background-color: #DB0004;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; /* responsivo em mobile vira coluna */
+  border: 8px solid #c8102e; /* borda vermelha grossa como no Figma */
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  width: 90%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.left-column {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+.right-column {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bg-image-right-column {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+.cow {
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  transform: translateX(30%);
+  width: 180px;
+  z-index: 1;
+}
+.cow-2 {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-100%);
+  width: 170px;
+  z-index: 1;
+}
+.fries {
+  position: absolute;
+  bottom: 73%;
+  left: 75%;
+  transform: translateX(-50%);
+  width: 170px;
+  z-index: 1;
+}
+.ufo {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-70%);
+  width: 200px;
+  z-index: 1;
+}
+
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-shadow: 3px 3px 6px #000;
+  text-align: center;
+}
+
+.description {
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+  text-align: center;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.enter-btn {
+  font-size: 30px;
+  position: absolute;
+  left: 65%;
+
+}
+
+/* Responsivo */
+@media (max-width: 1093px) {
+  .main-content-texture {
+      margin-left: 0%;
+      margin-right: 0%;
+  }
+  .main-content {
+    flex-direction: column;
+  }
+  .logo {
+    font-size: 3.5rem;
+  }
+  .fries {
+    width: 120px;
+    bottom: 44%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
