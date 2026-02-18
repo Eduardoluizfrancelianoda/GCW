@@ -47,7 +47,7 @@ session_start();
                         </div>
                         <button type="submit">Entrar</button>
 
-                        <a href="form_cadastra.php" type="button">Criar Conta</a>
+                        <a href="cadastro.php" type="button">Criar Conta</a>
 
                     </form>
                 </div>

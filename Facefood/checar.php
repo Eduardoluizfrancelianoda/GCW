@@ -1,37 +1,48 @@
 <?php
+
     session_start();    
     include_once 'conexao.php';
     
     $nome = $_POST['nome_usuario'];
     $senha = $_POST['senha'];
     
-    $consulta = "SELECT * FROM usuario WHERE Nome = :nome_usuario AND Senha = :senha";
+    $consulta = "SELECT * FROM usuarios WHERE nome = :nome_usuario";
     
     $stmt = $pdo->prepare($consulta);
     
     // Vincula os parâmetros
     $stmt->bindParam(':nome_usuario', $nome);
-    $stmt->bindParam(':senha', $senha);
     
     // Executa a consulta
     $stmt->execute();
-
-    // Obtém o número de registros encontrados
-    $registros = $stmt->rowCount();
     
     // Obtém o resultado
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
     
-    if($registros == 1){
+    if($resultado){
+
+    // Verifica a senha usando password_verify
+    if(password_verify($senha, $resultado['senha'])){
+
         $_SESSION['nome'] = $resultado['Nome'];
+        $_SESSION['foto_perfil'] = $resultado['foto_perfil'];
+
         header('Location: mainpage.php');
         exit;
 
-     }else{      
-        $_SESSION['erro_login'] = "Login inválido! Verifique suas informações e tente novamente.";
+    } else {
+
+        $_SESSION['erro_login'] = "Senha incorreta!";
         header('Location: login.php');
         exit;
+
     }
+
+} else {
+
+    $_SESSION['erro_login'] = "Usuário não encontrado!";
+    header('Location: login.php');
+    exit;
+}
 ?>
