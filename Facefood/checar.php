@@ -26,6 +26,7 @@
     if(password_verify($senha, $resultado['senha'])){
 
         $_SESSION['nome'] = $resultado['Nome'];
+        $_SESSION['usuario_id'] = $resultado['id'];
         $_SESSION['foto_perfil'] = $resultado['foto_perfil'];
 
         header('Location: mainpage.php');
