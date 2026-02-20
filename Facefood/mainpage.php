@@ -12,11 +12,22 @@
     <link rel="stylesheet" href="CSS/mainstyle.css">
 </head>
 <header>
+    <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 <body>
     <section class="criar-post">
-    <form action="criar_post.php" method="POST" enctype="multipart/form-data">
+    <?php
+    if (isset($_SESSION['erro_post'])) {
+        echo '<div style="color:red;">' . $_SESSION['erro_post'] . '</div>';
+        unset($_SESSION['erro_post']);
+    }
+    if (isset($_SESSION['msg'])) {
+        echo '<div style="color:green;">' . $_SESSION['msg'] . '</div>';
+        unset($_SESSION['msg']);
+    }
+    ?>
+    <form action="operações/criar_post.php" method="POST" enctype="multipart/form-data">
         
         <input type="text" name="titulo" placeholder="Título da receita" required>
         
@@ -32,7 +43,7 @@
     <section class="feed">
         <?php
         session_start();
-        require "conexao.php";
+        require "operações/conexao.php";
 
         $sql = "SELECT posts.*, usuarios.nome, usuarios.foto_perfil 
                 FROM posts 
@@ -46,12 +57,19 @@
         foreach ($posts as $post) {
             echo "<div class='post'>";
             echo "<div class='post-header'>";
-                echo "<img src='uploads/fotos/" . $post['foto_perfil'] . "' alt='Foto de perfil' class='foto-perfil'>";
+                echo "<img src='" . $post['foto_perfil'] . "' alt='Foto de perfil' class='foto-perfil'>";
             echo "<span>" . $post['nome'] . "</span>";
+            // Botão deletar só para o dono do post
+            if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $post['usuario_id']) {
+                echo "<form method='POST' action='crud/deletar.php' style='display:inline;'>";
+                echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
+                echo "<button type='submit' onclick=\"return confirm('Tem certeza que deseja deletar este post?');\" class='btn-deletar'>Deletar</button>";
+                echo "</form>";
+            }
             echo "</div>";
             echo "<h2>" . $post['titulo'] . "</h2>";
-                echo "<p>" . $post['descricao'] . "</p>";
-                echo "<img src='uploads/posts/" . $post['imagem'] . "' alt='Imagem do post' class='imagem-post'>";
+            echo "<p>" . $post['descricao'] . "</p>";
+            echo "<img src='uploads/posts/" . $post['imagem'] . "' alt='Imagem do post' class='imagem-post'>";
             echo "</div>";
         }
         ?>
