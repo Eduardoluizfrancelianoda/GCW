@@ -63,7 +63,7 @@
             if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $post['usuario_id']) {
                 echo "<form method='POST' action='crud/deletar.php' style='display:inline;'>";
                 echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
-                echo "<button type='submit' onclick=\"return confirm('Tem certeza que deseja deletar este post?');\" class='btn-deletar'>Deletar</button>";
+                echo "<button type='submit' onclick=\"return confirm('Tem certeza que deseja deletar este post?');\" class='btn-deletar'>Deletar post</button>";
                 echo "</form>";
             }
             echo "</div>";

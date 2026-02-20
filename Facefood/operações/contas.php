@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'foto_perfil' => $foto_perfil
     ];
 
-    header("Location: operações/cadastro_final.php");
+    header("Location: cadastro_final.php");
     exit;
 }
 ?>

@@ -35,7 +35,7 @@
     } else {
 
         $_SESSION['erro_login'] = "Senha incorreta!";
-        header('Location: ../operações/login.php');
+        header('Location: login.php');
         exit;
 
     }

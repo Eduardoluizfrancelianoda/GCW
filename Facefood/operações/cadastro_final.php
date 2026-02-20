@@ -28,12 +28,11 @@
     // Executa a query e verifica se foi bem-sucedida
     $rs = mysqli_query($con, $sql);
     if($rs){
-        // Cria a sessão de login automaticamente
-        $_SESSION['usuarios'] = [
-            'nome' => $nome,
-            'senha' => $senha,
-            'foto_perfil' => $foto_perfil
-        ];
+        // Busca o id do usuário recém cadastrado
+        $usuario_id = mysqli_insert_id($con);
+        $_SESSION['usuario_id'] = $usuario_id;
+        $_SESSION['nome'] = $nome;
+        $_SESSION['foto_perfil'] = $foto_perfil;
 
         // Limpa os dados de cadastro da sessão
         unset($_SESSION['dados_cadastro']);
