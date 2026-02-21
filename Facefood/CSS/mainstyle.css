@@ -16,13 +16,10 @@ body {
   background-image: url("../imgs/textura_amadeirada.jpg");
   background-size: cover;
   background-position: center;     
-  background-repeat: no-repeat;    
-  min-height: 100%; 
+  background-repeat: no-repeat;     
   margin-left: 10%;
   margin-right: 10%;
-  position: relative;
-  top: -20px;
-  display: flex;
+  z-index: 1;
 }
 
 header {
@@ -49,4 +46,40 @@ header {
   color: white;
   margin-left: 8px;
   display: inline-block;
+}
+
+.feed {
+  flex: 1;
+  padding: 16px;
+  max-width: 600px;
+  margin: 0 auto;}
+
+.form-criar-post {
+  background-color: #fefa8c;
+  padding: 16px;
+  margin-bottom: 16px;
+  flex-direction: column;
+  max-width: 570px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+}
+
+.foto-perfil {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-left: 8px;
+}
+
+.imagem-post {
+  max-width: 50%;
+  height: auto;
+  margin-top: 8px;
+  object-fit: cover;
+}
+.post {
+  background-color: #fefa8c;
+  padding: 16px;
+  margin-bottom: 16px;
 }

@@ -18,11 +18,26 @@ session_start();
         <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="../css/introstyle.css" rel="stylesheet" />
     </head>
     <body>
         <div>
             <div>
+
+            <div class="main-content-texture">
+        <div class="main-content">    
+            <div class="left-column">
+                <img src="../imgs/milharal.PNG" alt="Milharal" class="bg-image">
+                <img src="../gifs/vaca olhano pra cima.gif" alt="Vaca no milharal" class="cow">
+                <img src="../gifs/vaca de boa.gif" alt="Vaca no milharal de boa" class="cow-2">
+                <img src="../gifs/ufo.gif" alt="ufo massa" class="ufo">
+            </div>
+
+            <div class="right-column">
+                <div class="bg-image" style="background-image: url(../imgs/restaurante\ massa.jpg);">
+                    <img src="../gifs/prato de fritas.gif" alt="fritas" class="fries">
+                </div>
+
                 <div>
                     <h1>Faça seu Login aqui:</h1>
                     <!--  Exibe mensagem de erro, se existir -->

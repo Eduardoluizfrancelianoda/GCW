@@ -16,6 +16,7 @@
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 <body>
+    <section class="main-content-texture">
     <section class="criar-post">
     <?php
     if (isset($_SESSION['erro_post'])) {
@@ -27,13 +28,14 @@
         unset($_SESSION['msg']);
     }
     ?>
-    <form action="operações/criar_post.php" method="POST" enctype="multipart/form-data">
+    <form action="operações/criar_post.php" method="POST" enctype="multipart/form-data" class="form-criar-post">
+    
+        <input type="file" name="imagem" accept="image/*" class="input-imagem" required>    
+
+        <input type="text" name="titulo" placeholder="Título da receita" class="input-titulo" required>
         
-        <input type="text" name="titulo" placeholder="Título da receita" required>
-        
-        <textarea name="legenda" placeholder="Escreva a legenda..." required></textarea>
-        
-        <input type="file" name="imagem" accept="image/*" required>
+        <textarea name="legenda" placeholder="Escreva a legenda..." class="input-legenda" required></textarea>
+    
         
         <button type="submit">Publicar</button>
         
@@ -67,12 +69,14 @@
                 echo "</form>";
             }
             echo "</div>";
+            echo "<img src='uploads/posts/" . $post['imagem'] . "' alt='Imagem do post' class='imagem-post'>";
             echo "<h2>" . $post['titulo'] . "</h2>";
             echo "<p>" . $post['descricao'] . "</p>";
-            echo "<img src='uploads/posts/" . $post['imagem'] . "' alt='Imagem do post' class='imagem-post'>";
+
             echo "</div>";
         }
         ?>
     </section>
+</section>
 </body>
 </html>
