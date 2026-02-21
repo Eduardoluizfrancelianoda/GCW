@@ -59,13 +59,20 @@
         foreach ($posts as $post) {
             echo "<div class='post'>";
             echo "<div class='post-header'>";
-                echo "<img src='" . $post['foto_perfil'] . "' alt='Foto de perfil' class='foto-perfil'>";
+            echo "<img src='" . $post['foto_perfil'] . "' alt='Foto de perfil' class='foto-perfil'>";
             echo "<span>" . $post['nome'] . "</span>";
             // Botão deletar só para o dono do post
             if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $post['usuario_id']) {
                 echo "<form method='POST' action='crud/deletar.php' style='display:inline;'>";
                 echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
                 echo "<button type='submit' onclick=\"return confirm('Tem certeza que deseja deletar este post?');\" class='btn-deletar'>Deletar post</button>";
+                echo "</form>";
+            }
+            // Botão editar post
+            if (isset($_SESSION['usuario_id']) && $_SESSION['usuario_id'] == $post['usuario_id']) {
+                echo "<form method='POST' action='atualizar_form.php' style='display:inline;'>";
+                echo "<input type='hidden' name='post_id' value='" . $post['id'] . "'>";
+                echo "<button type='submit' onclick=\"return confirm('Tem certeza que deseja editar este post?');\" class='btn-editar'>Editar post</button>";
                 echo "</form>";
             }
             echo "</div>";
