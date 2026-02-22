@@ -16,7 +16,21 @@
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 <body>
+
+    <!-- Conteúdo principal -->
     <section class="main-content-texture">
+    
+        <!-- Navbar -->
+    <section class="navbar">
+        <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
+        <ul>
+            <li><a href="mainpage.php">Início</a></li>
+            <li><a href="perfil.php">Perfil</a></li>
+            <li><a href="ranking.php">ranking</a></li>
+        </ul>
+    </section>
+
+    <!-- Formulário de criação de post -->
     <section class="criar-post">
     <?php
     if (isset($_SESSION['erro_post'])) {
@@ -38,10 +52,13 @@
     
         
         <button type="submit">Publicar</button>
+
+        <img src="gifs/coxinha.gif" alt="Coxinha">
         
     </form>
     </section>
 
+    <!-- Feed de posts -->
     <section class="feed">
         <?php
         session_start();
@@ -55,6 +72,8 @@
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        //Exibe os posts
 
         foreach ($posts as $post) {
             echo "<div class='post'>";

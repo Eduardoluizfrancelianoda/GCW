@@ -4,6 +4,11 @@
   font-style: normal;
 }
 
+form {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 body {
   background-image: url("../imgs/textura_amadeirada.jpg");
   background-size: cover;

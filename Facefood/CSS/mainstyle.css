@@ -32,6 +32,25 @@ header {
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+.navbar {
+  background-color: #FFBB00;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  z-index: 2;
+  flex-direction: column;
+  float: left;
+  height: 98vh;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar img {
+  width: 200px;
+  height: 150px;
+  margin-right: 8px;
+}
+
 .logo {
   color: white;
   margin: 0 0 0 16px;
@@ -59,10 +78,17 @@ header {
   padding: 16px;
   margin-bottom: 16px;
   flex-direction: column;
-  max-width: 570px;
+  max-width: 568px;
   margin: 0 auto;
   padding: 16px;
   display: grid;
+  transform: translateX(-105px);
+}
+
+textarea {
+    resize: vertical;
+    max-height: 200px;
+    min-height: 170px;
 }
 
 .foto-perfil {
