@@ -25,7 +25,6 @@
         <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
         <ul>
             <li><a href="mainpage.php">Início</a></li>
-            <li><a href="perfil.php">Perfil</a></li>
             <li><a href="ranking.php">ranking</a></li>
         </ul>
     </section>
@@ -43,8 +42,9 @@
     }
     ?>
     <form action="operações/criar_post.php" method="POST" enctype="multipart/form-data" class="form-criar-post">
-    
-        <input type="file" name="imagem" accept="image/*" class="input-imagem" required>    
+
+        <label for="input-imagem">Imagem da publicação:</label>
+        <input type="file" name="imagem" accept="image/*" id="input-imagem" class="input-imagem" required><hr>    
 
         <input type="text" name="titulo" placeholder="Título da receita" class="input-titulo" required>
         
@@ -64,10 +64,11 @@
         session_start();
         require "operações/conexao.php";
 
-        $sql = "SELECT posts.*, usuarios.nome, usuarios.foto_perfil 
-                FROM posts 
-                JOIN usuarios ON posts.usuario_id = usuarios.id
-                ORDER BY posts.id DESC";
+        $sql = "SELECT posts.*, usuarios.nome, usuarios.foto_perfil,
+        (SELECT COUNT(*) FROM curtidas WHERE curtidas.post_id = posts.id) AS total_likes
+        FROM posts
+        JOIN usuarios ON posts.usuario_id = usuarios.id
+        ORDER BY posts.id DESC";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -98,11 +99,48 @@
             echo "<img src='uploads/posts/" . $post['imagem'] . "' alt='Imagem do post' class='imagem-post'>";
             echo "<h2>" . $post['titulo'] . "</h2>";
             echo "<p>" . $post['descricao'] . "</p>";
+            echo "<div class='like-area'>";
+            echo "<button class='btn-like' 
+                    data-post-id='" . $post['id'] . "'>
+                    👍 <span class='like-count'>" . $post['total_likes'] . "</span>
+                </button>";
+            echo "</div>";
 
             echo "</div>";
         }
         ?>
     </section>
 </section>
+<script>
+document.querySelectorAll('.btn-like').forEach(button => {
+    button.addEventListener('click', function() {
+
+        const postId = this.dataset.postId;
+        const likeCountSpan = this.querySelector('.like-count');
+
+        fetch('operações/like.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'post_id=' + postId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                likeCountSpan.textContent = data.total_likes;
+
+                // acender botão
+                if (data.liked) {
+                    this.classList.add('liked');
+                } else {
+                    this.classList.remove('liked');
+                }
+            }
+        });
+
+    });
+});
+</script>
 </body>
 </html>

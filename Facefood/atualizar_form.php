@@ -30,7 +30,7 @@
         $stmt->execute();
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Se recebeu post_id via POST ou GET, mostra formulário de edição
+        // Se recebeu post_id via POST, mostra formulário de edição
         if (isset($_POST['post_id'])) {
             $post_id = isset($_POST['post_id']) ? $_POST['post_id'] : $_GET['post_id'];
             // Busca post específico
