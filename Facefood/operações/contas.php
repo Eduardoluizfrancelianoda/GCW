@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $nomeArquivo = uniqid() . "_" . $foto['name'];
 
-        $caminho = "uploads/fotos/" . $nomeArquivo;
+        $caminho = "../uploads/fotos/" . $nomeArquivo;
 
         // move a imagem
         if (move_uploaded_file($foto['tmp_name'], $caminho)) {
