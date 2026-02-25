@@ -118,7 +118,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
-    <button><a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a></button>
+    <a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a>
     <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>

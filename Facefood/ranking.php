@@ -42,7 +42,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
-    <button><a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a></button>
+    <a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a>
     <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
@@ -53,9 +53,12 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <section class="navbar">
         <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
         <ul>
-            <li><a href="mainpage.php">Início</a></li>
-            <li><a href="ranking.php">Ranking</a></li>
+            <li><button><a href="mainpage.php">Início</a></button></li>
+            <li><button><a href="ranking.php">Ranking</a></button></li>
         </ul>
+        
+        <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
+        <img src="gifs/salada.gif" alt="salada" class="navbar-gif">
     </section>
 
     <!-- Mensagens de feedback -->
