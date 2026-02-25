@@ -132,9 +132,12 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
     <section class="navbar">
         <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
         <ul>
-            <li><a href="mainpage.php">Início</a></li>
-            <li><a href="ranking.php">ranking</a></li>
+            <li><button><a href="mainpage.php">Início</a></button></li>
+            <li><button><a href="ranking.php">Ranking</a></button></li>
         </ul>
+        
+        <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
+        <img src="gifs/salada.gif" alt="salada" class="navbar-gif">
     </section>
 
     <section class="feed">

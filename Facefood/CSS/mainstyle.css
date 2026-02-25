@@ -13,6 +13,16 @@ body {
   padding: 0;
 }
 
+.profile-edit {
+  background-color: #fefa8c;
+  padding: 16px;
+  margin-bottom: 16px;
+  flex-direction: column;
+  max-width: 568px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
 button {
   background-color: #FFBB00;
   border: solid 2px #000000;
