@@ -118,9 +118,13 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
+    <button><a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a></button>
     <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
+
+<!-- imagem do fundo sobre comida -->
+<img src="imgs/imagem gostosa de comida.jpg" alt="imgs/imagem gostosa de comida" class="imagem-fundo">
 
 <section class="main-content-texture">
 
@@ -130,7 +134,6 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <li><a href="mainpage.php">Início</a></li>
             <li><a href="ranking.php">ranking</a></li>
-            <li><a href="perfil.php">Perfil</a></li>
         </ul>
     </section>
 

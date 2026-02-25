@@ -25,7 +25,7 @@
     // Verifica a senha usando password_verify
     if(password_verify($senha, $resultado['senha'])){
 
-        $_SESSION['nome'] = $resultado['Nome'];
+        $_SESSION['nome'] = $resultado['nome'];
         $_SESSION['usuario_id'] = $resultado['id'];
         $_SESSION['foto_perfil'] = $resultado['foto_perfil'];
 
