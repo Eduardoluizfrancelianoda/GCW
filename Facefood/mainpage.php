@@ -44,6 +44,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
+    <img src="uploads/fotos/<?= htmlspecialchars($_SESSION['foto_perfil'] ?? 'default.jpg') ?>" alt="Foto de perfil" class="foto-perfil">
     <a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a>
     <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
@@ -130,7 +131,8 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
 
                     <h2><?= htmlspecialchars($post['titulo']) ?></h2>
-
+                    
+                    <!-- Botão para alternar visibilidade da descrição -->
                     <button onclick="toggleReceita('<?= $post['id'] ?>', this)">Ver receita</button>
                     <p id="desc-<?= $post['id'] ?>" style="display: none;"><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
 

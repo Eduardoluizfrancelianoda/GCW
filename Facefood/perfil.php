@@ -187,6 +187,14 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
         <!-- Exibição do perfil e formulário de edição -->
         <div class="profile-edit">
             <h2>Meu Perfil</h2>
+            <!-- Botão para deletar a conta -->
+            <hr>
+            <form action="perfil.php" method="post" onsubmit="return confirm('ATENÇÃO! Essa ação é irreversível. Todos os seus posts e curtidas serão perdidos. Tem certeza que deseja deletar sua conta?');">
+                <input type="hidden" name="delete_account" value="1">
+                <button type="submit" style="background-color:#dc3545; color:white; cursor:pointer;">Deletar minha conta</button>
+            </form>
+            <hr>
+
             <form action="perfil.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="edit_profile" value="1">
                 <input type="hidden" name="foto_atual" value="<?= htmlspecialchars($usuario['foto_perfil']) ?>">
@@ -208,15 +216,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
                 <button type="submit">Salvar alterações</button>
                 <button type="button" onclick="window.location.href='mainpage.php';">Ir para a página principal</button>
             </form>
-
-            <!-- Botão para deletar a conta -->
-            <hr>
-            <form action="perfil.php" method="post" onsubmit="return confirm('ATENÇÃO! Essa ação é irreversível. Todos os seus posts e curtidas serão perdidos. Tem certeza que deseja deletar sua conta?');">
-                <input type="hidden" name="delete_account" value="1">
-                <button type="submit" style="background-color:#dc3545; color:white; padding:10px 20px; cursor:pointer;">Deletar minha conta</button>
-            </form>
         </div>
-
         <hr>
 
         <!-- Listagem dos posts do usuário -->
@@ -229,7 +229,9 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
                         <span><?= htmlspecialchars($usuario['nome']) ?></span>
                     </div>
                     <h4><?= htmlspecialchars($post['titulo']) ?></h4>
+
                     <p><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
+
                     <?php if (!empty($post['imagem'])): ?>
                         <img src="uploads/posts/<?= htmlspecialchars($post['imagem']) ?>" alt="Imagem do post" style="max-width: 100%;">
                     <?php endif; ?>

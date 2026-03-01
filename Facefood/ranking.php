@@ -42,6 +42,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <header>
+    <img src="uploads/fotos/<?= htmlspecialchars($_SESSION['foto_perfil'] ?? 'default.jpg') ?>" alt="Foto de perfil" class="foto-perfil">
     <a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a>
     <a href="operações/logout.php"><img src="imgs/logout.png" alt="Sair" class="logout-icon"></a>
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
@@ -73,7 +74,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Feed de posts (ranking) -->
     <section class="feed">
-        <h1 style="background-color: #fefa8c; padding: 10px; border-radius: 5px;">Ranking dos Posts mais gostados</h1>
+        <h1 style="background-color: #fefa8c; padding: 10px;">Ranking dos Posts mais gostados</h1>
         <?php if (empty($posts)): ?>
             <p>Nenhum post ainda. Seja o primeiro a publicar!</p>
         <?php else: ?>
@@ -105,7 +106,15 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
 
                     <h2><?= htmlspecialchars($post['titulo']) ?></h2>
-                    <p><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
+
+                    <!-- Botão para alternar visibilidade da descrição -->
+                    <button onclick="toggleReceita('<?= $post['id'] ?>', this)">Ver receita</button>
+                    <p id="desc-<?= $post['id'] ?>" style="display: none;"><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
+
+                    <!-- Descrição (inicialmente escondida) -->
+                    <p class="descricao-post" id="desc-<?= $post['id'] ?>" style="display: none;">
+                        <?= nl2br(htmlspecialchars($post['descricao'])) ?>
+                    </p>
 
                     <!-- Área de curtidas -->
                     <div class="like-area">
@@ -120,5 +129,18 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </section>
 </section>
+
+<script>
+function toggleReceita(postId, btn) {
+    const desc = document.getElementById('desc-' + postId);
+    if (desc.style.display === 'none') {
+        desc.style.display = 'block';
+        btn.innerText = 'Esconder receita';
+    } else {
+        desc.style.display = 'none';
+        btn.innerText = 'Ver receita';
+    }
+}
+</script>
 </body>
 </html>
