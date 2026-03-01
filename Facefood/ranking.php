@@ -73,7 +73,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Feed de posts (ranking) -->
     <section class="feed">
-        <h1>Ranking dos Posts mais gostados</h1>
+        <h1 style="background-color: #fefa8c; padding: 10px; border-radius: 5px;">Ranking dos Posts mais gostados</h1>
         <?php if (empty($posts)): ?>
             <p>Nenhum post ainda. Seja o primeiro a publicar!</p>
         <?php else: ?>
