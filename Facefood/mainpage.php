@@ -50,7 +50,9 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </header>
 
 <!-- imagem do fundo sobre comida -->
+<img src="imgs/textura enxadrada.jpg" alt="imgs/textura enxadrada" class="imagem-fundo-enxadrada">
 <img src="imgs/imagem gostosa de comida.jpg" alt="imgs/imagem gostosa de comida" class="imagem-fundo">
+<img src="imgs/textura_amadeirada.jpg" alt="imgs/textura amadeirada" class="imagem-fundo-amadeirada">
 
 <section class="main-content-texture">
     <!-- Navbar -->
