@@ -165,7 +165,22 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 
+<!-- imagem do fundo sobre comida -->
+<img src="imgs/textura enxadrada.jpg" alt="imgs/textura enxadrada" class="imagem-fundo-enxadrada">
+<img src="imgs/textura_amadeirada.jpg" alt="imgs/textura amadeirada" class="imagem-fundo-amadeirada">
+
 <section class="main-content-texture">
+    <!-- Navbar -->
+    <section class="navbar">
+        <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
+        <ul>
+            <li><button><a href="mainpage.php">Início</a></button></li>
+            <li><button><a href="ranking.php">ranking</a></button></li>
+        </ul>
+        
+        <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
+        <img src="gifs/salada.gif" alt="salada" class="navbar-gif">
+    </section>
     <section class="feed">
         <?= $mensagem ?>
 
