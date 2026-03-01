@@ -55,6 +55,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <img src="imgs/textura_amadeirada.jpg" alt="imgs/textura amadeirada" class="imagem-fundo-amadeirada">
 
 <section class="main-content-texture">
+    
     <!-- Navbar -->
     <section class="navbar">
         <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
@@ -63,6 +64,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <li><button><a href="ranking.php">ranking</a></button></li>
         </ul>
         
+    <!--gifs da navbar-->
         <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
         <img src="gifs/salada.gif" alt="salada" class="navbar-gif">
     </section>
@@ -128,13 +130,20 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endif; ?>
 
                     <h2><?= htmlspecialchars($post['titulo']) ?></h2>
-                    <p><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
+
+                    <button onclick="toggleReceita('<?= $post['id'] ?>', this)">Ver receita</button>
+                    <p id="desc-<?= $post['id'] ?>" style="display: none;"><?= nl2br(htmlspecialchars($post['descricao'])) ?></p>
+
+                    <!-- Descrição (inicialmente escondida) -->
+                    <p class="descricao-post" id="desc-<?= $post['id'] ?>" style="display: none;">
+                        <?= nl2br(htmlspecialchars($post['descricao'])) ?>
+                    </p>
 
                     <!-- Área de curtidas -->
                     <div class="like-area">
-                        <button class="btn-like <?= ($usuario_logado && $usuario_curtiu ?? false) ? 'liked' : '' ?>" 
+                        <button class="btn-like <?= ($usuario_logado && ($usuario_curtiu ?? false)) ? 'liked' : '' ?>" 
                                 data-post-id="<?= $post['id'] ?>" 
-                                <?= $usuario_logado ? '' : 'disabled title="Faça login para curtir"' ?>>
+                                <?= $usuario_logado ? '' : 'disabled title="Faça login para curtir"'; ?>>
                             👍 <span class="like-count"><?= (int)$post['total_likes'] ?></span>
                         </button>
                     </div>
@@ -179,6 +188,19 @@ document.querySelectorAll('.btn-like').forEach(button => {
         });
     });
 });
+</script>
+
+<script>
+function toggleReceita(postId, btn) {
+    const desc = document.getElementById('desc-' + postId);
+    if (desc.style.display === 'none') {
+        desc.style.display = 'block';
+        btn.innerText = 'Esconder receita';
+    } else {
+        desc.style.display = 'none';
+        btn.innerText = 'Ver receita';
+    }
+}
 </script>
 </body>
 </html>
