@@ -2,16 +2,23 @@
 session_start();
 require __DIR__ . '/conexao.php';
 
+
+// Verifica se o usuário está logado
 if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit();
 }
 
+// Verifica se o método é POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../mainpage.php");
     exit();
 }
 
+// Valida e processa os dados do formulário. Com enfase em processar o upload da imagem porque isso me levou muito 
+// tempo para aprender a fazer direito, e ainda tem muita coisa que eu não sei sobre isso, como por exemplo, como 
+// evitar que um usuário mal intencionado envie um arquivo malicioso disfarçado de imagem, ou como lidar com erros 
+// de upload de forma mais robusta. Mas enfim, aqui está o código para criar um post com upload de imagem:
 $titulo = trim($_POST['titulo'] ?? '');
 $legenda = trim($_POST['legenda'] ?? '');
 $usuario_id = $_SESSION['usuario_id'];
@@ -46,7 +53,7 @@ if (!move_uploaded_file($imagem['tmp_name'], $caminho)) {
     exit();
 }
 
-
+// Agora que a imagem foi salva, podemos inserir os dados do post no banco
 $sql = "INSERT INTO posts (usuario_id, titulo, descricao, imagem)
     VALUES (:usuario_id, :titulo, :descricao, :imagem)";
 
@@ -56,6 +63,8 @@ $stmt->bindParam(':titulo', $titulo);
 $stmt->bindParam(':descricao', $legenda);
 $stmt->bindParam(':imagem', $nomeImagem);
 
+
+// Tenta executar a query e capturar qualquer erro que possa ocorrer
 $ok = false;
 try {
     $ok = $stmt->execute();

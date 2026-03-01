@@ -91,6 +91,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div style="margin-left: auto;">
                                 <a href="atualizar_form.php?post_id=<?= $post['id'] ?>" class="btn-editar" 
                                    onclick="return confirm('Deseja editar este post?');">Editar</a>
+                                   
                                 <form method="POST" action="crud/deletar.php" style="display:inline;">
                                     <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
                                     <button type="submit" onclick="return confirm('Tem certeza que deseja deletar este post?');" 

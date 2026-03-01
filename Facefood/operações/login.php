@@ -45,7 +45,7 @@ session_start();
                     <div class="alert alert-danger" role="alert" style="max-width: 400px;">
                         <?php 
                             echo $_SESSION['erro_login']; 
-                            unset($_SESSION['erro_login']); // limpa pra não repetir
+                            unset($_SESSION['erro_login']); // limpa a variavel pra não repetir
                         ?>
                     </div>
                     <?php endif; ?>

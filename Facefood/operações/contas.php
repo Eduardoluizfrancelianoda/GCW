@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Verifica se o metodo é POST e se os dados necessários foram enviados
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nome = $_POST['nome_usuario'];

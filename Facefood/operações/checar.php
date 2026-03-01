@@ -2,12 +2,15 @@
 
     session_start();    
     include_once __DIR__ . '/conexao.php';
-    
+
+    // pega os dados do formulário
     $nome = $_POST['nome_usuario'];
     $senha = $_POST['senha'];
     
+    // Consulta para verificar se o usuário existe
     $consulta = "SELECT * FROM usuarios WHERE nome = :nome_usuario";
     
+    // Prepara a consulta
     $stmt = $pdo->prepare($consulta);
     
     // Vincula os parâmetros

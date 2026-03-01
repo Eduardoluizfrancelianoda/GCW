@@ -25,7 +25,6 @@ $sql = "SELECT posts.*, usuarios.nome, usuarios.foto_perfil,
         FROM posts
         JOIN usuarios ON posts.usuario_id = usuarios.id
         ORDER BY posts.id DESC";
-        // Para produção, adicionar LIMIT com paginação: LIMIT :offset, :limit
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -43,6 +42,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="CSS/mainstyle.css">
 </head>
 <body>
+<!-- header da pagina que mostra a logo, nome e foto do usuário logado -->
 <header>
     <img src="uploads/fotos/<?= htmlspecialchars($_SESSION['foto_perfil'] ?? 'default.jpg') ?>" alt="Foto de perfil" class="foto-perfil">
     <a href="perfil.php">bem vindo, <?= htmlspecialchars($_SESSION['nome'] ?? 'Visitante') ?></a>
@@ -50,11 +50,13 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 
-<!-- imagem do fundo sobre comida -->
+<!-- imagens do fundo yum yum -->
 <img src="imgs/textura enxadrada.jpg" alt="imgs/textura enxadrada" class="imagem-fundo-enxadrada">
 <img src="imgs/imagem gostosa de comida.jpg" alt="imgs/imagem gostosa de comida" class="imagem-fundo">
 <img src="imgs/textura_amadeirada.jpg" alt="imgs/textura amadeirada" class="imagem-fundo-amadeirada">
 
+
+<!-- conteúdo principal -->
 <section class="main-content-texture">
     
     <!-- Navbar -->
