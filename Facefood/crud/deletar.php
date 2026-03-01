@@ -1,44 +1,46 @@
 <?php
 session_start();
-require_once __DIR__ . '/../operações/conexao.php';
+require_once "../operações/conexao.php"; // Ajuste o caminho conforme sua estrutura
 
+// Verifica se o usuário está logado e se é o dono do post
 if (!isset($_SESSION['usuario_id'])) {
-    header('Location: ../operações/login.php');
-    exit();
+    header('Location: ../login.php');
+    exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
     $post_id = (int)$_POST['post_id'];
     $usuario_id = $_SESSION['usuario_id'];
 
-    // Busca o post para garantir que é do usuário e pegar o nome da imagem
-    $stmt = $pdo->prepare('SELECT imagem, usuario_id FROM posts WHERE id = :id');
-    $stmt->bindParam(':id', $post_id, PDO::PARAM_INT);
-    $stmt->execute();
+    // Primeiro, busca o post para verificar a propriedade e obter o nome da imagem
+    $sql = "SELECT imagem, usuario_id FROM posts WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$post_id]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($post && $post['usuario_id'] == $usuario_id) {
-        // Deleta o post
-        $stmt = $pdo->prepare('DELETE FROM posts WHERE id = :id AND usuario_id = :usuario_id');
-        $stmt->bindParam(':id', $post_id, PDO::PARAM_INT);
-        $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
-        $stmt->execute();
+        // Armazena o nome da imagem antes de deletar o registro
+        $imagem = $post['imagem'];
 
-        // Remove a imagem do servidor
-        if (!empty($post['imagem'])) {
-            $caminho = __DIR__ . '/../uploads/posts/' . $post['imagem'];
-            if (file_exists($caminho)) {
-                unlink($caminho);
+        // Deleta o registro do banco
+        $sqlDelete = "DELETE FROM posts WHERE id = ?";
+        $stmtDelete = $pdo->prepare($sqlDelete);
+        if ($stmtDelete->execute([$post_id])) {
+            // Se a exclusão no banco foi bem-sucedida, remove o arquivo de imagem
+            if (!empty($imagem)) {
+                $caminho_imagem = "../uploads/posts/" . $imagem; // Caminho relativo ao local deste arquivo
+                if (file_exists($caminho_imagem)) {
+                    unlink($caminho_imagem); // Deleta o arquivo
+                }
             }
+            $_SESSION['msg'] = "Post deletado com sucesso!";
+        } else {
+            $_SESSION['erro_post'] = "Erro ao deletar o post.";
         }
-        
-        $_SESSION['msg'] = 'Post deletado com sucesso!';
     } else {
-        $_SESSION['msg'] = 'Você não tem permissão para deletar este post.';
+        $_SESSION['erro_post'] = "Você não tem permissão para deletar este post.";
     }
-} else {
-    $_SESSION['msg'] = 'Requisição inválida.';
 }
 
 header('Location: ../mainpage.php');
-exit();
+exit;

@@ -39,11 +39,23 @@ button {
 .main-content-texture {
   background-image: url("../imgs/textura_amadeirada.jpg");
   background-size: cover;
-  background-position: center;     
-  background-repeat: no-repeat;     
+  background-position: center;
+  background-repeat: no-repeat;
   margin-left: 10%;
   margin-right: 10%;
-  z-index: 500;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+.flex-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.main-content-texture > div {
+  flex-shrink: 0;
+  margin: 8px 16px;
 }
 
 header {
@@ -51,18 +63,18 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap; /* responsivo em mobile vira coluna */
+  flex-wrap: wrap;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  height: 70px;
 }
 
 .navbar {
-  background-color: #fefa8c;
+  background-color: #FFBB00;
   padding: 10px 0;
-  z-index: 2;
-  flex-direction: column;
-  float: left;
-  height: 98vh;
+  flex-shrink: 0; /* Mantém o tamanho original */
+  float: left;   /* Já existente, mas cuidado com flex */
+  height: auto;  /* Ajuste conforme necessário */
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -113,10 +125,14 @@ header {
 }
 
 .feed {
-  flex: 1;
+  flex: 1; /* Ocupa todo o espaço vertical que sobra */
+  overflow-y: auto; /* Ativa a rolagem interna */
   padding: 16px;
   max-width: 600px;
-  margin: 0 auto;}
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .form-criar-post {
   background-color: #fefa8c;
@@ -163,4 +179,20 @@ textarea {
   height: 100%;
   object-fit: cover;
   z-index: -1;
+}
+
+.criar-post {
+  flex-shrink: 0;
+  margin: 0 16px;
+}
+
+.feed::-webkit-scrollbar {
+  width: 8px;
+}
+.feed::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.feed::-webkit-scrollbar-thumb {
+  background: #DB0004;
+  border-radius: 4px;
 }

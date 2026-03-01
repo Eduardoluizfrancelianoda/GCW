@@ -87,7 +87,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </section>
     <?php else: ?>
-        <p><a href="login.php">Faça login</a> para criar um post.</p>
+        <p><a href="operações/login.php">Faça login</a> para criar um post.</p>
     <?php endif; ?>
 
     <!-- Feed de posts -->

@@ -4,14 +4,55 @@ require_once "operações/conexao.php";
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php'); // ajuste para sua página de login
+    header('Location: login.php');
     exit;
 }
 
 $usuario_id = $_SESSION['usuario_id'];
 $mensagem = '';
 
-// Processa atualização do perfil
+// ==================== PROCESSAR DELEÇÃO DA CONTA ====================
+if (isset($_POST['delete_account'])) {
+    // Confirmação via JavaScript já foi feita no front-end, mas vamos validar novamente
+    // Busca informações do usuário para deletar a foto de perfil e imagens dos posts
+    $stmt = $pdo->prepare("SELECT foto_perfil FROM usuarios WHERE id = ?");
+    $stmt->execute([$usuario_id]);
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Busca todos os posts do usuário para obter as imagens
+    $stmtPosts = $pdo->prepare("SELECT imagem FROM posts WHERE usuario_id = ?");
+    $stmtPosts->execute([$usuario_id]);
+    $posts = $stmtPosts->fetchAll(PDO::FETCH_ASSOC);
+
+    // Deleta a foto de perfil (se não for nula e existir)
+    if (!empty($usuario['foto_perfil'])) {
+        $caminho_foto = 'uploads/fotos/' . $usuario['foto_perfil'];
+        if (file_exists($caminho_foto)) {
+            unlink($caminho_foto);
+        }
+    }
+
+    // Deleta todas as imagens dos posts
+    foreach ($posts as $post) {
+        if (!empty($post['imagem'])) {
+            $caminho_imagem = 'uploads/posts/' . $post['imagem'];
+            if (file_exists($caminho_imagem)) {
+                unlink($caminho_imagem);
+            }
+        }
+    }
+
+    // Deleta o usuário do banco (posts e curtidas serão removidos automaticamente devido ao ON DELETE CASCADE)
+    $stmtDelete = $pdo->prepare("DELETE FROM usuarios WHERE id = ?");
+    $stmtDelete->execute([$usuario_id]);
+
+    // Destroi a sessão e redireciona para a página inicial
+    session_destroy();
+    header('Location: mainpage.php'); // ou login.php
+    exit;
+}
+
+// ==================== PROCESSAR ATUALIZAÇÃO DO PERFIL ====================
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile'])) {
     $novo_nome = trim($_POST['nome']);
     $foto_atual = $_POST['foto_atual'] ?? '';
@@ -67,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile'])) {
             $sql = "UPDATE usuarios SET nome = ?, foto_perfil = ? WHERE id = ?";
             $stmt = $pdo->prepare($sql);
             if ($stmt->execute([$novo_nome, $nome_foto, $usuario_id])) {
-                // Redireciona para evitar reenvio do formulário
+                // Atualiza o nome na sessão
+                $_SESSION['nome'] = $novo_nome;
                 $_SESSION['success'] = 'Perfil atualizado com sucesso!';
                 header('Location: perfil.php');
                 exit;
@@ -80,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_profile'])) {
 
 // Exibe mensagem de sucesso armazenada na sessão
 if (isset($_SESSION['success'])) {
-    $mensagem = '<p>' . htmlspecialchars($_SESSION['success']) . '</p>';
+    $mensagem = '<p style="color:green;">' . htmlspecialchars($_SESSION['success']) . '</p>';
     unset($_SESSION['success']);
 }
 
@@ -123,23 +165,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
     <h1 style="font-family: 'Inspiration', cursive;" class="logo">Facefood.com</h1>
 </header>
 
-<!-- imagem do fundo sobre comida -->
-<img src="imgs/imagem gostosa de comida.jpg" alt="imgs/imagem gostosa de comida" class="imagem-fundo">
-
 <section class="main-content-texture">
-
-    <!-- Navbar -->
-    <section class="navbar">
-        <img src="gifs/slides de comidas.gif" alt="comidas gif" class="gif-comidas">
-        <ul>
-            <li><button><a href="mainpage.php">Início</a></button></li>
-            <li><button><a href="ranking.php">Ranking</a></button></li>
-        </ul>
-        
-        <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
-        <img src="gifs/salada.gif" alt="salada" class="navbar-gif">
-    </section>
-
     <section class="feed">
         <?= $mensagem ?>
 
@@ -151,21 +177,28 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
                 <input type="hidden" name="foto_atual" value="<?= htmlspecialchars($usuario['foto_perfil']) ?>">
 
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required><br><br>
+                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required>
 
                 <label>Foto atual:</label><br>
                 <?php if (!empty($usuario['foto_perfil'])): ?>
-                    <img src="uploads/fotos/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto de perfil" style="max-width: 150px;"><br>
+                    <img src="uploads/fotos/<?= htmlspecialchars($usuario['foto_perfil']) ?>" alt="Foto de perfil" style="max-width: 150px;">
                 <?php else: ?>
                     <p>Nenhuma foto definida.</p>
                 <?php endif; ?>
                 <br>
 
                 <label for="foto_perfil">Nova foto (opcional):</label>
-                <input type="file" name="foto_perfil" id="foto_perfil" accept="image/jpeg,image/png,image/gif"><br><br>
+                <input type="file" name="foto_perfil" id="foto_perfil" accept="image/jpeg,image/png,image/gif">
 
                 <button type="submit">Salvar alterações</button>
                 <button type="button" onclick="window.location.href='mainpage.php';">Ir para a página principal</button>
+            </form>
+
+            <!-- Botão para deletar a conta -->
+            <hr>
+            <form action="perfil.php" method="post" onsubmit="return confirm('ATENÇÃO! Essa ação é irreversível. Todos os seus posts e curtidas serão perdidos. Tem certeza que deseja deletar sua conta?');">
+                <input type="hidden" name="delete_account" value="1">
+                <button type="submit" style="background-color:#dc3545; color:white; padding:10px 20px; cursor:pointer;">Deletar minha conta</button>
             </form>
         </div>
 
