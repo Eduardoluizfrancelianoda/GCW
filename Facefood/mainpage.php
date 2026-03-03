@@ -164,6 +164,8 @@ document.querySelectorAll('.btn-like').forEach(button => {
         // Se o botão estiver desabilitado (não logado), não faz nada
         if (this.disabled) return;
 
+
+        // Envia requisição AJAX para like.php
         const postId = this.dataset.postId;
         const likeCountSpan = this.querySelector('.like-count');
 
@@ -184,7 +186,7 @@ document.querySelectorAll('.btn-like').forEach(button => {
                     this.classList.remove('liked');
                 }
             } else {
-                // Se não logado, redireciona para login ou exibe mensagem
+                // Se não logado, exibe mensagem
                 alert('Você precisa estar logado para curtir.');
             }
         })
@@ -195,6 +197,7 @@ document.querySelectorAll('.btn-like').forEach(button => {
 });
 </script>
 
+    <!-- script para alternar visibilidade da descrição do post -->
 <script>
 function toggleReceita(postId, btn) {
     const desc = document.getElementById('desc-' + postId);
