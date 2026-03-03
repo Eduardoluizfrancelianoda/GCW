@@ -58,6 +58,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <li><button><a href="mainpage.php">Início</a></button></li>
             <li><button><a href="ranking.php">Ranking</a></button></li>
+            <li><button><a href="perfil.php">Perfil</a></button></li>
         </ul>
         
         <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">

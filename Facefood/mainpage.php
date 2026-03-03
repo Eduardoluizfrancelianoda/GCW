@@ -65,6 +65,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <li><button><a href="mainpage.php">Início</a></button></li>
             <li><button><a href="ranking.php">ranking</a></button></li>
+            <li><button><a href="perfil.php">Perfil</a></button></li>
         </ul>
         
     <!--gifs da navbar-->

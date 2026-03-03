@@ -176,6 +176,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <li><button><a href="mainpage.php">Início</a></button></li>
             <li><button><a href="ranking.php">ranking</a></button></li>
+            <li><button><a href="perfil.php">Perfil</a></button></li>
         </ul>
         
         <img src="gifs/FOOD gigantesco girano.gif" alt="gif gigantesco girando" class="navbar-gif">
@@ -200,7 +201,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
                 <input type="hidden" name="foto_atual" value="<?= htmlspecialchars($usuario['foto_perfil']) ?>">
 
                 <label for="nome">Nome:</label>
-                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required>
+                <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($usuario['nome']) ?>" required><br><br>
 
                 <label>Foto atual:</label><br>
                 <?php if (!empty($usuario['foto_perfil'])): ?>
@@ -211,7 +212,7 @@ $posts = $stmt_posts->fetchAll(PDO::FETCH_ASSOC);
                 <br>
 
                 <label for="foto_perfil">Nova foto (opcional):</label>
-                <input type="file" name="foto_perfil" id="foto_perfil" accept="image/jpeg,image/png,image/gif">
+                <input type="file" name="foto_perfil" id="foto_perfil" accept="image/jpeg,image/png,image/gif"> <br>
 
                 <button type="submit">Salvar alterações</button>
                 <button type="button" onclick="window.location.href='mainpage.php';">Ir para a página principal</button>
