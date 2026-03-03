@@ -64,7 +64,7 @@ body {
 
 .bg-image {
   width: 100%;
-  height: 400px;
+  height: 100%;
   object-fit: cover;
   background-size: cover;
   background-position: center;     
@@ -121,8 +121,7 @@ body {
 }
 
 form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
   gap: 20px;
 }
 

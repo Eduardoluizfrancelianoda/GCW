@@ -34,7 +34,6 @@ session_start();
 
             <div class="right-column">
                 <div class="bg-image" style="background-image: url(../imgs/restaurante\ massa.jpg);">
-                    <img src="../gifs/prato de fritas.gif" alt="fritas" class="fries">
                 </div>
                 <h1>Crie sua Conta:</h1>
                 <p>Preencha os campos abaixo para criar sua conta e acessar o sistema.</p>

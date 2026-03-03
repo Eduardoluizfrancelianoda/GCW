@@ -35,7 +35,6 @@ session_start();
 
             <div class="right-column">
                 <div class="bg-image" style="background-image: url(../imgs/restaurante\ massa.jpg);">
-                    <img src="../gifs/prato de fritas.gif" alt="fritas" class="fries">
                 </div>
 
                 <div>
